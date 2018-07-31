@@ -1,7 +1,7 @@
 FROM ethereum/solc:stable AS solc
 FROM golang:1.10.3 AS build
 
-MAINTAINER Gregoire Jeanmart version: 0.1
+MAINTAINER Gregoire Jeanmart version: 0.2
 
 
 ####################################################################################################################
@@ -41,7 +41,10 @@ RUN chmod +x /scripts/run.sh
 
 ####################################################################################################################
 # Run
-EXPOSE 46656 46657 46658 9999
+EXPOSE 46656
+EXPOSE 46657
+EXPOSE 46658
+EXPOSE 9999
 
 WORKDIR /loom
 

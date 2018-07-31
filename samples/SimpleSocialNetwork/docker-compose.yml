@@ -1,0 +1,83 @@
+version: '2'
+
+services:
+
+  elasticsearch:
+    image:  docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2 
+    ports:
+          - "9200:9200"
+          - "9300:9300"
+    volumes:
+      - .elasticsearch-docker:/data/elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    networks:
+      - default
+          
+
+  redis:
+    image: "bitnami/redis:latest"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - .redis-docker:/bitnami
+    networks:
+      - default
+          
+
+  loom:
+    image: "gjeanmart/loom-docker:latest"
+    environment:
+      - CONTRACT_NAME=SimpleSocialNetwork
+    ports:
+      - "46656:46656"
+      - "46657:46657"
+      - "46658:46658"
+      - "9999:9999"
+    volumes:
+      - ./contracts:/loom/contracts
+    networks:
+      - default
+          
+
+  indexer:
+    image: "gjeanmart/docker-loom-sample-simplesocialnetwork-indexer:latest"
+    environment:
+      - WS_ENDPOINT=loom:46657
+      - QUERY_ENDPOINT=loom:9999
+      - ES_ENDPOINT=elasticsearch:9200
+      - REDIS_HOST=redis
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+      - elasticsearch
+      - loom
+    networks:
+      - default
+          
+
+  web:
+    image: "gjeanmart/docker-loom-sample-simplesocialnetwork-web:latest"
+    environment:
+      - REACT_APP_INDEXER=indexer:8081
+    ports:
+      - "8080:8080"
+    depends_on:
+      - indexer
+    networks:
+      - default
+
+
+
