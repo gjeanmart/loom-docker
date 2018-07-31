@@ -4,8 +4,6 @@ A docker container to run a Loom dAppChain
 
 ## Getting started
 
-Pre-requiste
-
 1. Write your smart contract into a folder "/workspace/foo/MySideChainContract.sol"
 
 2. Start the dAppchain
