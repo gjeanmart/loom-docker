@@ -8,7 +8,7 @@ Pre-requiste
 
 1. Write your smart contract into a folder "/workspace/foo/MySideChainContract.sol"
 
-2. 
+2. Start the dAppchain
 ```
 docker run \ 
     -p 46656:46656 -p 46657:46657 -p 46658:46658 -p 9999:9999 \
