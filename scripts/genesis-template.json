@@ -1,0 +1,10 @@
+{
+    \"contracts\": [
+        {
+            \"vm\": \"EVM\",
+            \"format\": \"hex\",
+            \"name\": \"${CONTRACT_NAME}\",
+            \"location\": \"/loom/contracts/${CONTRACT_NAME}.bin\"
+        }
+    ]
+}
