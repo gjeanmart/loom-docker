@@ -1,4 +1,4 @@
-*.sol
+*.abi
 *.bin
 .*-docker/
 
