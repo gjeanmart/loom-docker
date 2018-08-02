@@ -35,7 +35,12 @@ docker run -it \
 
 Based on this example: https://loomx.io/developers/docs/en/simple-social-network-example.html
 
-TODO
+```
+$ docker-compose build 
+$ docker-compose up
+```
+
+Open the browser on `http://localhost:8080`
 
 
 
